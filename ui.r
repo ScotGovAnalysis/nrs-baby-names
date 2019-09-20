@@ -8,6 +8,10 @@ shinyUI(fluidPage(
   # tags$head(includeScript("google-analytics.js"),
   #           tags$script(src="js/main.js")
   # ),
+  
+  HTML("<script src='https://cc.cdn.civiccomputing.com/8/cookieControl-8.x.min.js'></script>"),
+  HTML("<script async src='https://www.googletagmanager.com/gtag/js?id=UA-91956629-1'></script>"),
+  tags$script(src = "cookie_control_config.js"),
 
   fluidRow(#1
     column(3, img(src = "nrs_logo.png", height = 67, width = 235)),
