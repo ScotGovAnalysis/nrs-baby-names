@@ -1,6 +1,7 @@
 var config = {
     apiKey: '2041dd1ec9de6cf9feabcaef5d4f484bdcdaaa5c',
     product: 'COMMUNITY',
+    initialState: "OPEN",
     text : {
         thirdPartyTitle : 'Warning: Some cookies require your attention',
         thirdPartyDescription : 'Consent for some third party cookies can not be automatically revoked. Please follow the link below if you want to opt out of them.'
