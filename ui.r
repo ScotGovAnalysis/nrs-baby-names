@@ -76,6 +76,9 @@ shinyUI(fluidPage(
     br(),
     h6("Any feedback about this visualisation?", 
         a("Get in touch!", href="mailto:victoria.avila@nrscotland.gov.uk?cc=statisticscustomerservices@nrscotland.gov.uk&subject=Baby%20names%202015%20visualisation"))
-  ) # End of fluidPage
+  ), # End of fluidPage
+  
+  tags$script(src = "mouseflow.js")
+  
 ) # End of shinyUI
 )
