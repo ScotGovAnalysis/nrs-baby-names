@@ -37,18 +37,16 @@ shinyUI(fluidPage(
         img(
           src = "nrs_logo.svg",
           height = 33.5,
-          width = 168.909653
-        ),
-        alt = "NRS Logo"
+          width = 168.909653,
+          alt = "National Records of Scotland logo. Directs to https://www.nrscotland.gov.uk/")
       ),
       a(
         href = "https://www.scotlandspeople.gov.uk/",
         img(
           src = "scotlandspeople_logo.svg",
           height = 33.5,
-          width = 168.909653
-        ),
-        alt = "Scotlands People Logo"
+          width = 168.909653,
+          alt = "Scotlands People logo. Directs to https://www.scotlandspeople.gov.uk/")
       )
     )),
   
@@ -58,11 +56,21 @@ shinyUI(fluidPage(
       width = 12,
       align = "center",
       h1("Baby Names"),
+      "How popular is your name in Scotland?",
       textInput(
         inputId = "name",
-        label = "How popular is your name in Scotland?",
+        label = NULL,
         value = "Olivia, Jack"
       ),
+      checkboxGroupButtons(
+        inputId = "select_sex", 
+        label = NULL, 
+        choices = c("Female", "Male"), 
+        selected = c("Female", "Male"), 
+        width = "250px",
+        justified = TRUE,
+        status = "primary"
+        ),
       actionButton(inputId = "goButton", 
                    label = "Go",
                    icon = icon("check"),
