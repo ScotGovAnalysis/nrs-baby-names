@@ -57,7 +57,10 @@ shinyUI(fluidPage(
         label = "How popular is your name in Scotland?",
         value = "Olivia, Jack"
       ),
-      actionButton(inputId = "goButton", label = "Go")
+      actionButton(inputId = "goButton", 
+                   label = "Go",
+                   icon = icon("check"),
+                   style = "color: #fff; background-color: #84329B; border-color: #731F71")
     )
   ),
   fluidRow(
