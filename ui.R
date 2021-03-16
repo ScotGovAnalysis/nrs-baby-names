@@ -112,21 +112,18 @@ shinyUI(fluidPage(
         "Download ",
         strong(a(
           "the data",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-summary-records-comma-separated-value-csv-format",
-          target = "_blank")),
+          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-summary-records-comma-separated-value-csv-format")),
         br(),
         "Read the ",
         strong(a(
           "official statistics",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2019",
-          target = "_blank"
+          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2019"
         )),
         br(),
         "See more ",
         strong(a(
           "infographics & visualisations",
-          href = "http://www.nrscotland.gov.uk/statistics-and-data/statistics/stats-at-a-glance/infographics-and-visualisations",
-          target = "_blank"
+          href = "http://www.nrscotland.gov.uk/statistics-and-data/statistics/stats-at-a-glance/infographics-and-visualisations"
         ))
       ),
       p(
@@ -134,13 +131,11 @@ shinyUI(fluidPage(
           href = "mailto:StatisticsCustomerServices@nrscotland.gov.uk"),
         " or follow us on Twitter: ",
         a("@NatRecordsScot",
-          href = "https://twitter.com/NatRecordsScot",
-          target = "_blank")
+          href = "https://twitter.com/NatRecordsScot")
       ),
       p(
         a("© Crown Copyright 2020",
-          href = "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
-          target = "_blank")
+          href = "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/")
       )
     )
   ),
