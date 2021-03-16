@@ -15,6 +15,7 @@ url <-
 
 shinyUI(fluidPage(
   
+  tags$head(includeCSS("www/style.css")),
   tags$html(lang = "en"),
   windowTitle = "NRS Baby Names",
   
@@ -37,7 +38,8 @@ shinyUI(fluidPage(
           src = "nrs_logo.svg",
           height = 33.5,
           width = 168.909653
-        )
+        ),
+        alt = "NRS Logo"
       ),
       a(
         href = "https://www.scotlandspeople.gov.uk/",
@@ -45,7 +47,8 @@ shinyUI(fluidPage(
           src = "scotlandspeople_logo.svg",
           height = 33.5,
           width = 168.909653
-        )
+        ),
+        alt = "Scotlands People Logo"
       )
     )),
   
