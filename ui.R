@@ -14,7 +14,7 @@ url <-
   "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://shiny.rstudio.com/gallery/widget-gallery.html/"
 
 shinyUI(fluidPage(
-  
+  tags$html(lang = "en"),
   useShinyjs(),
   tags$head(HTML("<script src='https://cc.cdn.civiccomputing.com/8/cookieControl-8.x.min.js'></script>"),
             HTML("<script async src='https://www.googletagmanager.com/gtag/js?id=UA-91956629-1'></script>"),
