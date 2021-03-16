@@ -1,0 +1,22 @@
+
+body {
+    font-size: large;
+    color: #333e38;
+    background-color: #ffffff;
+    line-height: 1.8;
+}
+
+a {
+    color: #0065bd;
+    text-decoration: underline;
+}
+
+
+a:focus {
+    background-color: #fdd522 !important;
+    color: #333e38 !important;
+    outline-offset: 0;
+    transition-duration: 0s;
+}
+
+
