@@ -93,10 +93,12 @@ create_suggestions <- function(first_name, suggestions_df) {
 }
 
 create_plot <- function(babynames = babynames,
-                        tidy_valid_names = tidy_valid_names) {
+                        tidy_valid_names = tidy_valid_names,
+                        selected_sex = selected_sex) {
   
   df_baby_names <- babynames %>%
-    filter(firstname %in% tidy_valid_names) %>%
+    filter(firstname %in% tidy_valid_names,
+           sex %in% selected_sex) %>%
     gather(key = "year", value = "count", -firstname, -sex) %>%
     mutate(year = as.numeric(year))
   
@@ -115,7 +117,8 @@ create_plot <- function(babynames = babynames,
       colors = col_select,
       linetype = ~ sex,
       linetypes = c("solid", "dot"),
-      hoverlabel = list(namelength = -1)
+     # hoverlabel = list(namelength = -1),
+      hovertemplate = paste('<b>%{x}</b>: %{y}')
     ) %>%
     config(displayModeBar = FALSE,
            showAxisDragHandles = FALSE) %>%
@@ -130,7 +133,8 @@ create_plot <- function(babynames = babynames,
         title = "",
         showgrid = FALSE,
         tickvals = c(1974, 1980, 1990, 2000, 2010, 2019),
-        zeroline = FALSE
+        zeroline = FALSE,
+        tickfont = list(size = 18)
       ),
       yaxis = list(
         fixedrange = TRUE,
@@ -138,13 +142,17 @@ create_plot <- function(babynames = babynames,
         title = "",
         showgrid = FALSE,
         tickformat = "f.0",
-        tick0 = 0
+        tickfont = list(size = 18),
+        tick0 = 0,
+        zeroline = FALSE
       ),
-      legend = list(orientation = 'h'),
+      legend = list(orientation = 'h',
+                    font = list(size = 18)),
       paper_bgcolor = "rgba(0, 0, 0, 0)",
       plot_bgcolor = "rgba(0, 0, 0, 0)",
       margin = list(l = 0,
-                    r = 0)) %>%
+                    r = 0),
+      showlegend = T) %>%
     onRender(
       "function(el, x) {
       Plotly.d3.select('.cursor-pointer').style('cursor', 'crosshair')}"
@@ -159,10 +167,17 @@ create_plot <- function(babynames = babynames,
 }
 
 default_plot <- create_plot(babynames = babynames,
-                            tidy_valid_names = c("Emily", "Oliver"))
+                            tidy_valid_names = c("Isla", "Jack"),
+                            selected_sex = c("Female", "Male"))
 
 ### Server function ###########################################################
 shinyServer(function(input, output, session) {
+  
+  observe({
+    if(length(input$select_sex) < 1 ){
+      updateCheckboxGroupButtons(session, "select_sex", selected = c("Female", "Male"))
+    }
+  })
   
   output$progress <- reactive({
     withProgress(message = 'Loading names...', value = 0, {
@@ -173,6 +188,11 @@ shinyServer(function(input, output, session) {
       }
     })
   })
+  
+  selected_sex <- reactive({
+    selected_sex <- input$select_sex
+  })
+  
   
   tidy_names <- eventReactive(input$goButton, {
     tidy_names <- input$name %>%
@@ -190,11 +210,9 @@ shinyServer(function(input, output, session) {
     intersect(tidy_names(), first_names)
   })
   
-  
   tidy_invalid_names <- reactive({
     setdiff(tidy_names(), tidy_valid_names())
   })
-  
   
   output$valid_names <- reactive({
     if (length(tidy_valid_names()) > 0)
@@ -226,7 +244,7 @@ shinyServer(function(input, output, session) {
   
   output$suggestions <- renderUI({
     list(
-      h3("Similar names:"),
+      h2("Similar names:"),
       lapply(
         X = tidy_names(),
         FUN = create_suggestions,
@@ -236,20 +254,22 @@ shinyServer(function(input, output, session) {
   })
   
   output$text <- renderText({
-    if (length(tidy_invalid_names()) > 0)
+    if (length(tidy_invalid_names()) > 0){
       paste("Oops! No babies have been recorded with the name(s):",
             paste(tidy_invalid_names(), collapse = ", "))
+    } 
   })
   
   output$plot <- renderPlotly({
     
     if (length(tidy_valid_names() > 0)) {
-      if (input$name == "Emily, Oliver") {
-        default_plot
-      } else {
+      # if (input$name == "Isla, Jack") {
+      #   default_plot
+      # } else {
         create_plot(babynames = babynames,
-                    tidy_valid_names = tidy_valid_names())
-      }
+                    tidy_valid_names = tidy_valid_names(),
+                    selected_sex = selected_sex())
+    #  }
     }
   })
   
