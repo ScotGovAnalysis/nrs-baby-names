@@ -60,7 +60,7 @@ shinyUI(fluidPage(
       textInput(
         inputId = "name",
         label = NULL,
-        value = "Olivia, Jack"
+        value = "Isla, Jack"
       ),
       checkboxGroupButtons(
         inputId = "select_sex", 
