@@ -66,15 +66,16 @@ shinyUI(fluidPage(
         inputId = "select_sex", 
         label = NULL, 
         choices = c("Female", "Male"), 
-        selected = c("Female", "Male"), 
+        selected = "Female", 
         width = "250px",
         justified = TRUE,
-        status = "primary"
+        status = "primary",
+        checkIcon = list(yes = icon("check"), no = icon("times"))
         ),
       actionButton(inputId = "goButton", 
-                   label = "Go",
-                   icon = icon("check"),
-                   style = "color: #fff; background-color: #84329B; border-color: #731F71")
+                   label = "Go!",
+                  # icon = icon("check"),
+                   style = "color: #fff; background-color: #84329B; border-color: #731F71; font-size:20px")
     )
   ),
   fluidRow(
