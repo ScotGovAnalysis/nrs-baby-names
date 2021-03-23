@@ -13,11 +13,11 @@ library(shinyWidgets)
 url <- "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://scotland.shinyapps.io/nrs-baby-names/"
 
 shinyUI(fluidPage(
-  
+
   tags$head(includeCSS("www/style.css")),
   tags$html(lang = "en"),
   windowTitle = "NRS Baby Names",
-  
+
   useShinyjs(),
   tags$head(HTML("<script src='https://cc.cdn.civiccomputing.com/8/cookieControl-8.x.min.js'></script>"),
             HTML("<script async src='https://www.googletagmanager.com/gtag/js?id=UA-91956629-1'></script>"),
@@ -25,7 +25,7 @@ shinyUI(fluidPage(
                        "overflow-x: hidden;"),
             tags$script(src = "js.js"),
             tags$script(src = "cookie_control_config.js")),
-  
+
   fluidRow(
     column(
       width = 12,
@@ -48,8 +48,7 @@ shinyUI(fluidPage(
           alt = "Scotlands People")
       )
     )),
-  
-  
+
   fluidRow(
     column(
       width = 12,
@@ -62,18 +61,21 @@ shinyUI(fluidPage(
         value = "Isla, Jack"
       ),
       checkboxGroupButtons(
-        inputId = "select_sex", 
-        label = NULL, 
-        choices = c("Female", "Male"), 
-        selected = "Female", 
+        inputId = "select_sex",
+        label = NULL,
+        choices = c("Female", "Male"),
+        selected = "Female",
         width = "250px",
         justified = TRUE,
         status = "primary",
         checkIcon = list(yes = icon("check"), no = icon("times"))
         ),
-      actionButton(inputId = "goButton", 
+      actionButton(inputId = "goButton",
                    label = "Go!",
-                   style = "color: #fff; background-color: #84329B; border-color: #731F71; font-size:20px")
+                   style = "color: #fff;
+                            background-color: #84329B;
+                            border-color: #731F71;
+                            font-size:20px")
     )
   ),
   fluidRow(
@@ -107,7 +109,7 @@ shinyUI(fluidPage(
     strong(a("find your Scottish ancestors.",
         href = "https://www.scotlandspeople.gov.uk/"))
     )
-  )), 
+  )),
   fluidRow(
     column(
       width = 12,
