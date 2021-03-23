@@ -97,8 +97,8 @@ create_plot <- function(babynames = babynames,
                         selected_sex = selected_sex) {
   
   df_baby_names <- babynames %>%
-    filter(firstname %in% tidy_valid_names,
-           sex %in% selected_sex) %>%
+   filter(firstname %in% tidy_valid_names,
+       sex %in% selected_sex) %>%
     gather(key = "year", value = "count", -firstname, -sex) %>%
     mutate(year = as.numeric(year))
   
@@ -117,7 +117,6 @@ create_plot <- function(babynames = babynames,
       colors = col_select,
       linetype = ~ sex,
       linetypes = c("solid", "dot"),
-     # hoverlabel = list(namelength = -1),
       hovertemplate = paste('<b>%{x}</b>: %{y}')
     ) %>%
     config(displayModeBar = FALSE,
@@ -156,7 +155,7 @@ create_plot <- function(babynames = babynames,
     onRender(
       "function(el, x) {
       Plotly.d3.select('.cursor-pointer').style('cursor', 'crosshair')}"
-    )
+    ) 
   
   if (max(df_baby_names[["count"]]) < 15) {
     main_plot %>%
@@ -204,6 +203,7 @@ shinyServer(function(input, output, session) {
       unique()
     tidy_names
     })
+  
   
   
   tidy_valid_names <- reactive({
@@ -254,22 +254,18 @@ shinyServer(function(input, output, session) {
   })
   
   output$text <- renderText({
-    if (length(tidy_invalid_names()) > 0){
+    if (length(tidy_invalid_names()) > 0)
       paste("Oops! No babies have been recorded with the name(s):",
             paste(tidy_invalid_names(), collapse = ", "))
-    } 
   })
   
   output$plot <- renderPlotly({
     
     if (length(tidy_valid_names() > 0)) {
-      # if (input$name == "Isla, Jack") {
-      #   default_plot
-      # } else {
+
         create_plot(babynames = babynames,
                     tidy_valid_names = tidy_valid_names(),
                     selected_sex = selected_sex())
-    #  }
     }
   })
   
