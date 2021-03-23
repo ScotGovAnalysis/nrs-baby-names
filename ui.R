@@ -38,7 +38,7 @@ shinyUI(fluidPage(
           src = "nrs_logo.svg",
           height = 33.5,
           width = 168.909653,
-          alt = "National Records of Scotland logo. Directs to https://www.nrscotland.gov.uk/")
+          alt = "National Records of Scotland.")
       ),
       a(
         href = "https://www.scotlandspeople.gov.uk/",
@@ -46,7 +46,7 @@ shinyUI(fluidPage(
           src = "scotlandspeople_logo.svg",
           height = 33.5,
           width = 168.909653,
-          alt = "Scotlands People logo. Directs to https://www.scotlandspeople.gov.uk/")
+          alt = "Scotlands People")
       )
     )),
   
