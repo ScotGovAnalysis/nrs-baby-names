@@ -10,8 +10,7 @@ library(htmlwidgets)
 library(feather)
 library(shinyWidgets)
 
-url <-
-  "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://shiny.rstudio.com/gallery/widget-gallery.html/"
+url <- "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://scotland.shinyapps.io/nrs-baby-names/"
 
 shinyUI(fluidPage(
   
@@ -74,7 +73,6 @@ shinyUI(fluidPage(
         ),
       actionButton(inputId = "goButton", 
                    label = "Go!",
-                  # icon = icon("check"),
                    style = "color: #fff; background-color: #84329B; border-color: #731F71; font-size:20px")
     )
   ),
