@@ -131,7 +131,7 @@ create_plot <- function(babynames = babynames,
         showline = FALSE,
         title = "",
         showgrid = FALSE,
-        tickvals = c(1974, 1980, 1990, 2000, 2010, 2019),
+        tickvals = c(1974, 1981, 1991, 2001, 2011, 2021),
         zeroline = FALSE,
         tickfont = list(size = 18)
       ),
