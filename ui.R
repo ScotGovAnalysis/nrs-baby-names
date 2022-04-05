@@ -26,29 +26,47 @@ shinyUI(fluidPage(
             tags$script(src = "js.js"),
             tags$script(src = "cookie_control_config.js")),
 
-  fluidRow(
-    column(
-      width = 12,
-      align = "center",
-      br(),
-      a(
-        href = "https://www.nrscotland.gov.uk/",
-        img(
-          src = "nrs_logo.svg",
-          height = 33.5,
-          width = 168.909653,
-          alt = "National Records of Scotland.")
-      ),
-      a(
-        href = "https://www.scotlandspeople.gov.uk/",
-        img(
-          src = "scotlandspeople_logo.svg",
-          height = 33.5,
-          width = 168.909653,
-          alt = "Scotlands People")
-      )
-    )),
+# Census banner to be removed 2 May 2022 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
+  
+  fluidRow(
+    width = 12,
+        align = "center",
+        br(),
+        a(
+          href = "www.census.gov.scot",
+          img(
+            src = "Connect homepage Rectangle (Twitter Post).svg",
+            height="100%", width="100%",
+            alt = "Scotland's Census 2022")
+        )
+  ),
+# Census banner to be removed 2 May 2022 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
+
+
+  # fluidRow(
+  #   column(
+  #     width = 12,
+  #     align = "center",
+  #     br(),
+  #     a(
+  #       href = "https://www.nrscotland.gov.uk/",
+  #       img(
+  #         src = "nrs_logo.svg",
+  #         height = 33.5,
+  #         width = 168.909653,
+  #         alt = "National Records of Scotland homepage")
+  #     ),
+  #     a(
+  #       href = "https://www.scotlandspeople.gov.uk/",
+  #       img(
+  #         src = "scotlandspeople_logo.svg",
+  #         height = 33.5,
+  #         width = 168.909653,
+  #         alt = "Scotlands People")
+  #     )
+  #   )),
+  
   fluidRow(
     column(
       width = 12,
@@ -135,7 +153,7 @@ shinyUI(fluidPage(
         "Read the ",
         strong(a(
           "official statistics",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2019"
+          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/"
         )),
         br(),
         "See more ",
