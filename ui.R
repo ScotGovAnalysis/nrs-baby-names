@@ -34,7 +34,7 @@ shinyUI(fluidPage(
         align = "center",
         br(),
         a(
-          href = "www.census.gov.scot",
+          href = "https://www.census.gov.scot/",
           img(
             src = "census_2022_banner.svg",
             height="100%", width="100%",
