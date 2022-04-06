@@ -36,7 +36,7 @@ shinyUI(fluidPage(
         a(
           href = "www.census.gov.scot",
           img(
-            src = "Connect homepage Rectangle (Twitter Post).svg",
+            src = "census_2022_banner.svg",
             height="100%", width="100%",
             alt = "Scotland's Census 2022")
         )
