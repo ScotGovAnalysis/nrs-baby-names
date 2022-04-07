@@ -28,6 +28,8 @@ these similar names is an `ActionLink` that updates the plot.
         (e.g. commas and spaces)
 3.  Update the code
       - `tickvals` in the plot
+      - Update the `Download the data` link
+      - Check and update the top names for the default display in `ui.R` & `server.R`
 4.  Create a [feather
     file](https://blog.rstudio.com/2016/03/29/feather/) from the CSV
     file
