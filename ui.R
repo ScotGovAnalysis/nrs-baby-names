@@ -76,7 +76,7 @@ shinyUI(fluidPage(
       textInput(
         inputId = "name",
         label = NULL,
-        value = "Isla, Jack"
+        value = "Olivia, Jack"
       ),
       checkboxGroupButtons(
         inputId = "select_sex",
@@ -148,7 +148,7 @@ shinyUI(fluidPage(
         "Download ",
         strong(a(
           "the data",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-summary-records-comma-separated-value-csv-format")),
+          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2021")),
         br(),
         "Read the ",
         strong(a(

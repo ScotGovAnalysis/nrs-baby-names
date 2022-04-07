@@ -165,7 +165,7 @@ create_plot <- function(babynames = babynames,
 }
 
 default_plot <- create_plot(babynames = babynames,
-                            tidy_valid_names = c("Isla", "Jack"),
+                            tidy_valid_names = c("Olivia", "Jack"),
                             selected_sex = c("Female", "Male"))
 
 ### Server function ###########################################################
