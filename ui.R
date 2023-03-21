@@ -1,11 +1,8 @@
 library(shiny)
-library(ggplot2)
 library(tidyverse)
 library(plotly)
-library(dplyr)
 library(stringdist)
 library(shinyjs)
-library(readr)
 library(htmlwidgets)
 library(feather)
 library(shinyWidgets)
@@ -26,46 +23,30 @@ shinyUI(fluidPage(
             tags$script(src = "js.js"),
             tags$script(src = "cookie_control_config.js")),
 
-# Census banner to be removed 2 May 2022 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+  actionButton("show", "Take our short survey!"),
 
-  
-  fluidRow(
+fluidRow(
+  column(
     width = 12,
-        align = "center",
-        br(),
-        a(
-          href = "https://www.census.gov.scot/",
-          img(
-            src = "census_2022_banner.svg",
-            height="100%", width="100%",
-            alt = "Scotland's Census 2022")
-        )
-  ),
-# Census banner to be removed 2 May 2022 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
-
-
-  # fluidRow(
-  #   column(
-  #     width = 12,
-  #     align = "center",
-  #     br(),
-  #     a(
-  #       href = "https://www.nrscotland.gov.uk/",
-  #       img(
-  #         src = "nrs_logo.svg",
-  #         height = 33.5,
-  #         width = 168.909653,
-  #         alt = "National Records of Scotland homepage")
-  #     ),
-  #     a(
-  #       href = "https://www.scotlandspeople.gov.uk/",
-  #       img(
-  #         src = "scotlandspeople_logo.svg",
-  #         height = 33.5,
-  #         width = 168.909653,
-  #         alt = "Scotlands People")
-  #     )
-  #   )),
+    align = "center",
+    br(),
+    a(
+      href = "https://www.nrscotland.gov.uk/",
+      img(
+        src = "nrs_logo.svg",
+        height = 33.5,
+        width = 168.909653,
+        alt = "National Records of Scotland homepage")
+    ),
+    a(
+      href = "https://www.scotlandspeople.gov.uk/",
+      img(
+        src = "scotlandspeople_logo.svg",
+        height = 33.5,
+        width = 168.909653,
+        alt = "Scotlands People")
+    )
+  )),
   
   fluidRow(
     column(
@@ -82,7 +63,7 @@ shinyUI(fluidPage(
         inputId = "select_sex",
         label = NULL,
         choices = c("Female", "Male"),
-        selected = "Female",
+        selected = c("Female", "Male"),
         width = "250px",
         justified = TRUE,
         status = "primary",
@@ -154,12 +135,6 @@ shinyUI(fluidPage(
         strong(a(
           "official statistics",
           href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/"
-        )),
-        br(),
-        "See more ",
-        strong(a(
-          "infographics & visualisations",
-          href = "http://www.nrscotland.gov.uk/statistics-and-data/statistics/stats-at-a-glance/infographics-and-visualisations"
         ))
       ),
       p(
