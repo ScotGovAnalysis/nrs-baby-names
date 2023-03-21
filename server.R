@@ -130,7 +130,7 @@ create_plot <- function(babynames = babynames,
         showline = FALSE,
         title = "",
         showgrid = FALSE,
-        tickvals = c(1974, 1981, 1991, 2001, 2011, 2021),
+        tickvals = c(1974, 1980, 1990, 2000, 2010, 2021),
         zeroline = FALSE,
         tickfont = list(size = 18)
       ),
@@ -170,7 +170,29 @@ default_plot <- create_plot(babynames = babynames,
 
 ### Server function ###########################################################
 shinyServer(function(input, output, session) {
-
+  
+  observe({
+    showModal(modalDialog(
+      title = "We would like to hear from you!",
+      "Complete this quick", 
+      a("survey",
+        href = "https://forms.office.com/e/yL8DwTnX3z"),
+      "and let us know your thoughts on this interactive Baby Names site",
+      easyClose = TRUE
+    ))
+  })
+  
+  observeEvent(input$show, {
+    showModal(modalDialog(
+      title = "We would like to hear from you!",
+      "Complete this quick", 
+      a("survey",
+        href = "https://forms.office.com/e/yL8DwTnX3z"),
+      "and let us know your thoughts on this interactive Baby Names site",
+      easyClose = TRUE
+    ))
+  })
+  
   observe({
     if (length(input$select_sex) < 1) {
       updateCheckboxGroupButtons(session,
