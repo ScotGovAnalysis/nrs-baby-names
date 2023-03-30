@@ -57,7 +57,7 @@ fluidRow(
       textInput(
         inputId = "name",
         label = NULL,
-        value = "Olivia, Jack"
+        value = "Olivia, Noah"
       ),
       checkboxGroupButtons(
         inputId = "select_sex",
@@ -129,19 +129,14 @@ fluidRow(
         "Download ",
         strong(a(
           "the data",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2021")),
+          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2022")),
         br(),
         "Read the ",
         strong(a(
           "official statistics",
           href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/"
         )),
-        br(),
-        "See more ",
-        strong(a(
-          "infographics & visualisations",
-          href = "http://www.nrscotland.gov.uk/statistics-and-data/statistics/stats-at-a-glance/infographics-and-visualisations"
-        ))
+        br()
       ),
       p(
         a("Email us",

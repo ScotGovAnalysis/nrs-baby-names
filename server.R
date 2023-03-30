@@ -130,7 +130,7 @@ create_plot <- function(babynames = babynames,
         showline = FALSE,
         title = "",
         showgrid = FALSE,
-        tickvals = c(1974, 1980, 1990, 2000, 2010, 2021),
+        tickvals = c(1974, 1980, 1990, 2000, 2010, 2022),
         zeroline = FALSE,
         tickfont = list(size = 18)
       ),
@@ -174,10 +174,15 @@ shinyServer(function(input, output, session) {
   observe({
     showModal(modalDialog(
       title = "We would like to hear from you!",
+      "We're improving the interactive baby names chart.",
+      br(),
       "Complete this quick", 
       a("survey",
         href = "https://forms.office.com/e/yL8DwTnX3z"),
-      "and let us know your thoughts on this interactive Baby Names site",
+      "and have your say.",
+      br(),
+      "It should take",
+      strong("less than 3 minutes."),
       easyClose = TRUE
     ))
   })
@@ -185,10 +190,15 @@ shinyServer(function(input, output, session) {
   observeEvent(input$show, {
     showModal(modalDialog(
       title = "We would like to hear from you!",
+      "We're improving the interactive baby names chart.",
+      br(),
       "Complete this quick", 
       a("survey",
         href = "https://forms.office.com/e/yL8DwTnX3z"),
-      "and let us know your thoughts on this interactive Baby Names site",
+      "and have your say.",
+      br(),
+      "It should take",
+      strong("less than 3 minutes."),
       easyClose = TRUE
     ))
   })
