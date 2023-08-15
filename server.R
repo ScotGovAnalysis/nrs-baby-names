@@ -1,207 +1,17 @@
-### Load data #################################################################
-babynames <- read_feather("www/data_all.feather")
-
-first_names <- unique(babynames[["firstname"]])
-
-### NRS style #################################################################
-  nrs_font <- "Segoe UI"
-  info_text_size <- 3.5
-  
-  col_neut_black <- "#000000"
-  col_neut_tundora <- "#4B4B4B"
-  col_neut_grey <- "#808080"
-  col_neut_silver <- "#b9b9b9"
-  col_neut_white <- "#FFFFFF"
-  
-  col_mig <- "#90278E"
-  col_mig_dark <- "#7317F1"
-  col_mig_light <- "#C793C6"
-    
-  col_adopt <- "#EE6214"
-  col_adopt_dark <- "#BE4E10"
-  col_adopt_light <- "#F6B089"
-  
-  col_births <- "#2E8ACA"
-  col_deaths <- "#284F99"
-  col_house <- "#5C7B1E"
-  col_lifexp <- "#6566AE"
-  col_elec <- "#C9347C"
-  col_pop <- "#2DA197"
-  
-  col_all <- c(
-    col_mig,
-    col_adopt,
-    col_house,
-    col_births,
-    col_elec,
-    col_lifexp,
-    col_deaths,
-    col_pop
-  )
-  
-  col_select <- c(
-    col_mig,
-    col_adopt,
-    col_house,
-    col_pop
-  )
-  
-  
-  info_point_shape <- 21
-  info_point_size <- 2
-  info_point_stroke <- 0.5
-  
-  info_line_size <- 1.4
-  
-  info_axis_text_size_large <- 13
-  info_axis_text_size_small <- 10
-  
-### Make theme function #######################################################
-  theme_info <- function() {
-    ggplot2::theme(
-      # Declutter
-      strip.background =  ggplot2::element_blank(),
-      panel.background = ggplot2::element_blank(),
-      axis.line = ggplot2::element_blank(),
-      axis.title = ggplot2::element_blank(),
-      axis.ticks = element_blank(),
-
-      #Text
-      text = ggplot2::element_text(family = nrs_font),
-      plot.title = element_text(hjust = 0, size = info_axis_text_size_large),
-      axis.text = element_text(size = info_axis_text_size_small),
-      strip.text.x = element_blank(),
-
-      # Margin
-      plot.margin = unit(c(0, 0, 0, 0), "npc"),
-      panel.spacing = unit(0.1, "npc")
-    )
-  }
-  
-create_suggestions <- function(first_name, suggestions_df) {
-
-  similar_names <- suggestions_df %>%
-    filter(`Your name(s)` == first_name) %>%
-    pull(`Similar names`)
-
-  list(strong(paste0(first_name, ": ")),
-       lapply(similar_names, function(x)
-         actionLink(
-           inputId = paste0("action_", x), label = x
-         )),
-       br())
-}
-
-create_plot <- function(babynames = babynames,
-                        tidy_valid_names = tidy_valid_names,
-                        selected_sex = selected_sex) {
-
-  df_baby_names <- babynames %>%
-   filter(firstname %in% tidy_valid_names,
-       sex %in% selected_sex) %>%
-    gather(key = "year", value = "count", -firstname, -sex) %>%
-    mutate(year = as.numeric(year))
-
-  main_plot <- plot_ly(
-    data = df_baby_names,
-    x = ~ year,
-    y = ~ count,
-    color = ~ firstname,
-    marker = list(size = 7)
-  ) %>%
-    add_trace(
-      type = "scatter",
-      mode = "markers+lines",
-      color = ~ firstname,
-      colors = col_select,
-      linetype = ~ sex,
-      linetypes = c("solid", "dot"),
-      hovertemplate = paste("<b>%{x}</b>: %{y}")
-    ) %>%
-    config(displayModeBar = FALSE,
-           showAxisDragHandles = FALSE) %>%
-    layout(
-      xaxis = list(
-        linecolor = rgb(255, 255, 255, maxColorValue = 255),
-        width = 0,
-        fill = NA,
-        fixedrange = TRUE,
-        bty = "n",
-        showline = FALSE,
-        title = "",
-        showgrid = FALSE,
-        tickvals = c(1974, 1980, 1990, 2000, 2010, 2021),
-        zeroline = FALSE,
-        tickfont = list(size = 18)
-      ),
-      yaxis = list(
-        fixedrange = TRUE,
-        showline = FALSE,
-        title = "",
-        showgrid = FALSE,
-        tickformat = "f.0",
-        tickfont = list(size = 18),
-        tick0 = 0,
-        zeroline = FALSE
-      ),
-      legend = list(orientation = "h",
-                    font = list(size = 18)),
-      paper_bgcolor = "rgba(0, 0, 0, 0)",
-      plot_bgcolor = "rgba(0, 0, 0, 0)",
-      margin = list(l = 0,
-                    r = 0),
-      showlegend = T) %>%
-    onRender(
-      "function(el, x) {
-      Plotly.d3.select('.cursor-pointer').style('cursor', 'crosshair')}"
-    )
-
-  if (max(df_baby_names[["count"]]) < 15) {
-    main_plot %>%
-      layout(yaxis = list(dtick = 1))
-  } else {
-    main_plot
-  }
-}
-
-default_plot <- create_plot(babynames = babynames,
-                            tidy_valid_names = c("Olivia", "Jack"),
-                            selected_sex = c("Female", "Male"))
 
 ### Server function ###########################################################
 shinyServer(function(input, output, session) {
   
-  observe({
-    showModal(modalDialog(
-      title = "We would like to hear from you!",
-      "Complete this quick", 
-      a("survey",
-        href = "https://forms.office.com/e/yL8DwTnX3z"),
-      "and let us know your thoughts on this interactive Baby Names site",
-      easyClose = TRUE
-    ))
-  })
-  
-  observeEvent(input$show, {
-    showModal(modalDialog(
-      title = "We would like to hear from you!",
-      "Complete this quick", 
-      a("survey",
-        href = "https://forms.office.com/e/yL8DwTnX3z"),
-      "and let us know your thoughts on this interactive Baby Names site",
-      easyClose = TRUE
-    ))
-  })
-  
+  # Forces the selext sex button to select female if nothing selected
   observe({
     if (length(input$select_sex) < 1) {
       updateCheckboxGroupButtons(session,
                                  "select_sex",
-                                 selected = c("Female",
-                                              "Male"))
+                                 selected = c("Female"))
     }
   })
 
+  # Show loading names message when app is loading
   output$progress <- reactive({
     withProgress(message = "Loading names...", value = 0, {
       n <- 40
@@ -212,10 +22,12 @@ shinyServer(function(input, output, session) {
     })
   })
 
+  # Reactively update selected sex
   selected_sex <- reactive({
     selected_sex <- input$select_sex
   })
 
+  # reactively create tidy names data set with user inputed names
   tidy_names <- eventReactive(input$goButton, {
     tidy_names <- input$name %>%
       stringr::str_to_title() %>%
@@ -227,10 +39,15 @@ shinyServer(function(input, output, session) {
     tidy_names
     })
 
+  # Create df with only valid names from the user input
   tidy_valid_names <- reactive({
     intersect(tidy_names(), first_names)
   })
-
+  
+  tidy_valid_names_rank <- reactive({
+    intersect(tidy_names(), first_names)
+  })
+  
   tidy_invalid_names <- reactive({
     setdiff(tidy_names(), tidy_valid_names())
   })
@@ -242,6 +59,7 @@ shinyServer(function(input, output, session) {
       return(FALSE)
   })
 
+  # calculate suggested names
   suggestions_df <- reactive({
     stringdistmatrix(first_names,
                      tidy_names(), method = "lv") %>%
@@ -255,6 +73,7 @@ shinyServer(function(input, output, session) {
       ungroup()
   })
 
+  
   observeEvent(input$js.link_clicked, {
     n <- unlist(str_split(input$js.link_clicked, "_"))[[2]]
     updateTextInput(session = session,
@@ -275,18 +94,55 @@ shinyServer(function(input, output, session) {
   })
 
   output$text <- renderText({
-    if (length(tidy_invalid_names()) > 0)
+    if (length(tidy_invalid_names()) > 0) 
       paste("Oops! No babies have been recorded with the name(s):",
             paste(tidy_invalid_names(), collapse = ", "))
   })
+  
 
-  output$plot <- renderPlotly({
 
+  # Collection methods note -------------------------------------------------
+  output$text_rank <- renderUI({
+    if (input$radio == 2)
+         
+    tagList("Note: Collection methods changed from 1974. See ",
+            a("the publication that explains this.",
+              href = "https://www.nrscotland.gov.uk/files//statistics/babies-names/historic/baby-names-1935-2022-key-findings.pdf")) 
+    })
+
+  # Create reactive df for ranked baby names
+  df_babynames_rank <- reactive({
+    babynames %>%
+      select(c(firstname, sex, starts_with("rank_")))  %>% 
+      rename_with(~str_remove(., 'rank_')) %>% 
+      filter(firstname %in% tidy_valid_names,
+             sex %in% selected_sex) %>%
+      gather(key = "year", value = "rank", -firstname, -sex) %>%
+      mutate(year = as.numeric(year),
+             rank = as.numeric(ifelse(!(rank %in% 1:100), NA_character_, rank))) %>% 
+      group_by(firstname, sex) %>% 
+      complete(year = min(year):max(year)) %>% 
+      ungroup() %>% 
+      mutate(label = paste(firstname, "<br>", sex)) %>% 
+      filter(rank %in% c(1:100)) 
+  })
+  
+  # render highchart 
+  output$plot <- renderHighchart({
     if (length(tidy_valid_names() > 0)) {
-
-        create_plot(babynames = babynames,
-                    tidy_valid_names = tidy_valid_names(),
-                    selected_sex = selected_sex())
+      if (input$radio == 1) {
+        create_plot(
+          babynames = babynames,
+          tidy_valid_names = tidy_valid_names(),
+          selected_sex = selected_sex()
+        )
+      } else{
+          create_plot_rank(
+            babynames = babynames,
+            tidy_valid_names = tidy_valid_names(),
+            selected_sex = selected_sex()
+          )
+      }
     }
   })
 

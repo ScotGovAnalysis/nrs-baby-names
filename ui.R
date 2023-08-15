@@ -1,14 +1,3 @@
-library(shiny)
-library(tidyverse)
-library(plotly)
-library(stringdist)
-library(shinyjs)
-library(htmlwidgets)
-library(feather)
-library(shinyWidgets)
-
-url <- "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://scotland.shinyapps.io/nrs-baby-names/"
-
 shinyUI(fluidPage(
 
   tags$head(includeCSS("www/style.css")),
@@ -16,14 +5,13 @@ shinyUI(fluidPage(
   windowTitle = "NRS Baby Names",
 
   useShinyjs(),
+  # Cookie control and google analytics
   tags$head(HTML("<script src='https://cc.cdn.civiccomputing.com/8/cookieControl-8.x.min.js'></script>"),
             HTML("<script async src='https://www.googletagmanager.com/gtag/js?id=UA-91956629-1'></script>"),
             tags$style(type = "text/css",
                        "overflow-x: hidden;"),
             tags$script(src = "js.js"),
             tags$script(src = "cookie_control_config.js")),
-
-  actionButton("show", "Take our short survey!"),
 
 fluidRow(
   column(
@@ -57,8 +45,9 @@ fluidRow(
       textInput(
         inputId = "name",
         label = NULL,
-        value = "Olivia, Jack"
+        placeholder = "Olivia, Noah"
       ),
+      #Button to select between sex
       checkboxGroupButtons(
         inputId = "select_sex",
         label = NULL,
@@ -67,8 +56,16 @@ fluidRow(
         width = "250px",
         justified = TRUE,
         status = "primary",
-        checkIcon = list(yes = icon("check"), no = icon("times"))
+        checkIcon = list(yes = icon("check"), 
+                         no = icon("times"))
         ),
+      #Button to select between rank & Count
+      radioButtons("radio", 
+                   label = NULL,
+                   inline = T,
+                   choices = list("Count" = 1, "Rank (Top 100 since 1935)" = 2), 
+                   selected = 1),
+      uiOutput(outputId = "text_rank"),
       actionButton(inputId = "goButton",
                    label = "Go!",
                    style = "color: #fff;
@@ -83,9 +80,9 @@ fluidRow(
       align = "center",
       textOutput(outputId = "text"),
       conditionalPanel(condition = "output.valid_names",
-                       plotlyOutput(outputId = "plot"))
-    )
-  ),
+# HIGHCHARTS output
+  highchartOutput(outputId = "plot")))),
+
   fluidRow(column(
     12,
     align = "center",
