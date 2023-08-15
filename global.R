@@ -12,8 +12,14 @@ babynames <- read_feather("www/data_all.feather")
 
 first_names <- unique(babynames[["firstname"]])
 
+# Find the top names for default values in ui.R
+top_names <- babynames %>% 
+  filter(babynames[,ncol(babynames)] == 1) 
+top_names <- paste0(top_names[1,1]$firstname, ", ",  top_names[2,1]$firstname)
+
 # URL for the twitter link
 url <- "https://twitter.com/intent/tweet?text=Check%20out%20how%20popular%20your%20name%20is%20here!&hashtags=NRSstats&url=https://scotland.shinyapps.io/nrs-baby-names/"
+data_url <- "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2022"
 
 # Globally format thousands separator for highcharts
 hcoptslang <- getOption("highcharter.lang")
@@ -151,8 +157,6 @@ create_plot_rank <- function(babynames = babynames,
     hc_yAxis(reversed = T,
              categories = categories,
              tickPositions = c(1, 50, 100)) %>% 
-    hc_xAxis(min = 1935,
-             max = 2022) %>% 
     hc_legend(labelFormatter = JS("function () {
             return this.name + '<br>(click to hide)';
         }")) %>% 

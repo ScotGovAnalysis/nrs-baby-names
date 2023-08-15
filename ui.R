@@ -45,7 +45,7 @@ fluidRow(
       textInput(
         inputId = "name",
         label = NULL,
-        placeholder = "Olivia, Noah"
+        placeholder = top_names
       ),
       #Button to select between sex
       checkboxGroupButtons(
@@ -126,7 +126,7 @@ fluidRow(
         "Download ",
         strong(a(
           "the data",
-          href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/names/babies-first-names/babies-first-names-2021")),
+          href = data_url)),
         br(),
         "Read the ",
         strong(a(
